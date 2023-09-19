@@ -1,13 +1,53 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.grow-wrap {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+  display: grid;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.grow-wrap::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) " ";
+
+  /* This is how textarea text behaves */
+  white-space: pre-wrap;
+
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+}
+
+.grow-wrap>textarea {
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+}
+
+.grow-wrap>textarea,
+.grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid black;
+  padding: 0.80rem 2rem;
+
+
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+textarea {
+  background: url(http://i.imgur.com/2cOaJ.png);
+  background-attachment: local;
+  background-repeat: no-repeat;
+
+  border-color: #ccc;
+  outline: none;
+  height: 200px;
+  overflow: none;
+  font-size: 10px;
+  background-color: #F0F0F0;
+
 }
