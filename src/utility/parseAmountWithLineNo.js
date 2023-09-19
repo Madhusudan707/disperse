@@ -5,11 +5,15 @@ export const parseAmountWithLineNo = (addressAmountData) => {
     if (addressAmountData.hasOwnProperty(key)) {
       const entries = addressAmountData[key];
       for (const entry of entries) {
-        const { amount } = entry;
-        AmountWithLineNo.push(amount);
+        const { amount, lineNumber } = entry;
+        AmountWithLineNo.push({ amount, lineNumber });
       }
     }
   }
 
-  return AmountWithLineNo;
+  AmountWithLineNo.sort((a, b) => a.lineNumber - b.lineNumber);
+
+  const sortedAmounts = AmountWithLineNo.map((entry) => entry.amount);
+
+  return sortedAmounts;
 };
